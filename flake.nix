@@ -23,51 +23,28 @@
       url = "github:homebrew/homebrew-bundle";
       flake = false;
     };
+    homebrew-services = {
+      url = "github:homebrew/homebrew-services";
+      flake = false;
+    };
   };
 
-  outputs = inputs@{ self, nix-darwin, home-manager, nixpkgs, nix-homebrew, homebrew-core, homebrew-cask, homebrew-bundle }:
-  let
-    configuration = { pkgs, ... }: {
-      # List packages installed in system profile. To search by name, run:
-      # $ nix-env -qaP | grep wget
-      environment.systemPackages =
-        [ pkgs.vim
-        ];
-     nixpkgs.config.allowUnfree = true;
-      # Auto upgrade nix package and the daemon service.
-      services.nix-daemon.enable = true;
-      # nix.package = pkgs.nix;
-
-      # Necessary for using flakes on this system.
-      nix.settings.experimental-features = "nix-command flakes";
-
-      # Create /etc/zshrc that loads the nix-darwin environment.
-      programs.zsh.enable = true;  # default shell on catalina
-      # programs.fish.enable = true;
-
-      # Set Git commit hash for darwin-version.
-      system.configurationRevision = self.rev or self.dirtyRev or null;
-
-      # Used for backwards compatibility, please read the changelog before changing.
-      # $ darwin-rebuild changelog
-      system.stateVersion = 4;
-
-      # The platform the configuration will be used on.
-      nixpkgs.hostPlatform = "aarch64-darwin";
-    };
+  outputs = inputs@{ self, nix-darwin, home-manager, nixpkgs, homebrew-services, nix-homebrew, homebrew-core, homebrew-cask, homebrew-bundle }:
+  let 
   in
   {
     # Build darwin flake using:
     # $ darwin-rebuild build --flake .#Fletchers-MacBook-Air
     darwinConfigurations."Fletchers-MacBook-Air" = nix-darwin.lib.darwinSystem {
+      inherit inputs;
+      system = "aarch64-darwin";
       modules = [ 
-        configuration
         ./configuration.nix
         home-manager.darwinModules.home-manager
         {
 	        home-manager.useGlobalPkgs = true;
 	        home-manager.useUserPackages = true;
-	        home-manager.users.fbright = import ./home.nix;
+	        home-manager.users.fbright = import ./home-manager.nix;
 	        #  home-manager.extraSpecialArgs = ;
         }
         nix-homebrew.darwinModules.nix-homebrew
@@ -82,6 +59,7 @@
               "homebrew/homebrew-core" = homebrew-core;
               "homebrew/homebrew-cask" = homebrew-cask;
               "homebrew/homebrew-bundle" = homebrew-bundle;
+              "homebrew/homebrew-services" = homebrew-services;
             };
             # Disables the addition of taps with `brew tap`
             mutableTaps = false;

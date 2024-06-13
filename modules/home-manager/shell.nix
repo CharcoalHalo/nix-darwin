@@ -1,7 +1,7 @@
 { pkgs, ... }:
 let
   myAliases = {
-    darwin-switch-mac = "darwin-rebuild switch --flake ~/.config/nix-darwin#Fletchers-MacBook-Air";
+    nix-switch-darwin = "darwin-rebuild switch --flake ~/.config/nix-darwin#Fletchers-MacBook-Air";
   };
 
 in {
@@ -16,6 +16,16 @@ in {
       enable = true;
       plugins = [ "git" ];
       theme = "agnoster";
+    };
+  };
+
+  programs.kitty = {
+    enable = true;
+    font.name = "JetBrains Mono";
+    font.size = 13;
+    settings = {
+      enable_audio_bell = false;
+      confirm_os_window_close = -1; # only on shells with running tasks
     };
   };
 }

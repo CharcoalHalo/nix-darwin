@@ -2,6 +2,10 @@
 {
   home.username = "fbright";
 
+  imports = [
+    ./modules/home-manager/shell.nix
+  ];
+
   programs.java = {
     enable = true;
     package = pkgs.openjdk22;
@@ -14,23 +18,11 @@
     keepassxc
     vscodium
     rectangle
-    # syncthing
-#    ungoogled-chromium
-#    librewolf
     zoom-us
-#    vesktop
-  #   rpcs3
   ];
 
-  programs.zsh.enable = true;  
-  programs.zsh.oh-my-zsh = {
-    enable = true;
-    extraConfig = ''
-      alias nix-darwin-switch="darwin-rebuild switch --flake ~/.config/nix-darwin#Fletchers-MacBook-Air"
-    '';
-  };
   
-  home.stateVersion = "24.05";
+  home.stateVersion = "24.11";
   
   programs.home-manager.enable = true;
 }
