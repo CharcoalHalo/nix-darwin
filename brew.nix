@@ -14,6 +14,7 @@
       "steam"
       "betterdisplay"
       "stats"
+      "godot"
 
       # Office
       "onedrive"
