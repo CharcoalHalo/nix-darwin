@@ -1,5 +1,15 @@
 { pkgs, ... }:
 {
+  home.packages = with pkgs; [
+    #dotnet-sdk_8
+    dotnetCorePackages.sdk_8_0_2xx
+  ];
+
+  programs.java = {
+    enable = true;
+    package = pkgs.openjdk22;
+  };
+
  programs.vscode = {
     enable = true;
     package = pkgs.vscodium;
@@ -8,7 +18,8 @@
       "[nix]"."editor.tabsize" = 2;
       "editor.indentSize" = "tabSize";
       "telemetry.telemetryLevel" = "off";
-
+      "godotTools.editorPath.godot4" = "/Applications/Godot.app/Contents/MacOS/Godot";
+      "godot.csharp.executablePath" = "/Applications/Godot.app/Contents/MacOS/Godot";
       # macOS Modern Tweaks
       "editor.fontSize" = 12;
       "editor.fontFamily" = "SF Mono, Monaco";
