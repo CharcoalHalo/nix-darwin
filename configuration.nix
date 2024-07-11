@@ -2,6 +2,8 @@
 {
   imports = [
     ./brew.nix
+    ./modules/darwin/dock.nix
+    ./modules/darwin/finder.nix
   ];
   users.users.fbright.home = "/Users/fbright";
 
@@ -10,21 +12,27 @@
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
-    
+    # terminal tools
+    bat
+    btop
+    gcc
+    neofetch
+    tree
+    pciutils
+    wget
+
+    # archive tools
+    zip
+    unzip
+    rar
+    unrar
   ];
 
-
-  fonts = {
-    fontDir.enable = true;
-    fonts = with pkgs;[
-      powerline-fonts
-      jetbrains-mono
-      font-awesome_5
-    ];
-  };
   nix = {
     gc = {
       automatic = true;
+      interval = { Weekday = 0; Hour = 0; Minute = 0; };
+      options = "--delete-older-than 30d";
     };
     package = pkgs.nix;#nixVersions.latest;
     # Enable Flakes
