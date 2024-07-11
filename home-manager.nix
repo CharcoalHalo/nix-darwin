@@ -4,22 +4,20 @@
 
   imports = [
     ./modules/home-manager/shell.nix
+    ./modules/home-manager/development.nix
   ];
-
-  programs.java = {
-    enable = true;
-    package = pkgs.openjdk22;
-  };
 
   home.packages = with pkgs; [
     raycast
     spotify
     obsidian
     keepassxc
-    vscodium
     rectangle
     zoom-us
+    utm
+    qbittorrent
   ];
+
 
   
   home.stateVersion = "24.11";
