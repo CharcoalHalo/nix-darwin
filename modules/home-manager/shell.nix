@@ -21,11 +21,14 @@ in {
 
   programs.kitty = {
     enable = true;
-    font.name = "JetBrains Mono";
+    font.name = "SF Mono";
     font.size = 13;
     settings = {
       enable_audio_bell = false;
       confirm_os_window_close = -1; # only on shells with running tasks
+      font_family = "SF Mono";
+      background_opacity = "0.6";
+      background_blur = 16;
     };
   };
 }
