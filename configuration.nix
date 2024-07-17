@@ -25,7 +25,6 @@
     zip
     unzip
     rar
-    unrar
   ];
 
   nix = {
