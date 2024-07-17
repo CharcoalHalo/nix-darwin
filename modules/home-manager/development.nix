@@ -2,7 +2,7 @@
 {
   home.packages = with pkgs; [
     #dotnet-sdk_8
-    dotnetCorePackages.sdk_8_0_2xx
+    dotnetCorePackages.sdk_8_0_3xx
   ];
 
   programs.java = {
