@@ -3,6 +3,10 @@
   homebrew = {
     enable = true;
     taps = builtins.attrNames config.nix-homebrew.taps;
+    global.autoUpdate = true;
+    onActivation.cleanup = "zap"; # uninstall all apps not in the brew.nix file
+    onActivation.autoUpdate = true;
+    onActivation.upgrade = true;
     casks = [
       "syncthing"
       "eclipse-java"
@@ -15,6 +19,9 @@
       "betterdisplay"
       "stats"
       "godot"
+      "caffeine"
+      "jdownloader"
+      "sf-symbols"
 
       # Office
       "onedrive"
